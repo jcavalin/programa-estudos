@@ -6,7 +6,8 @@ RUN apt-get update \
 
 COPY .docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# install xdebug
+RUN a2enmod rewrite
+
 RUN pecl install xdebug
-COPY .docker/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN docker-php-ext-enable xdebug
+COPY .docker/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini

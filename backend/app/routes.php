@@ -15,12 +15,20 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
+        $response->getBody()->write('Programa de estudos.');
         return $response;
     });
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
+    });
+
+    $app->group('/programa-estudos', function (Group $group) {
+        $group->get('', ListUsersAction::class);
+//        $group->post('', ListUsersAction::class);
+//        $group->put('/{id}', ListUsersAction::class);
+//        $group->delete('/{id}', ListUsersAction::class);
+//        $group->get('/{id}', ViewUserAction::class);
     });
 };

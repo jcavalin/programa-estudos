@@ -19,11 +19,13 @@ services:
     depends_on:
       - db
     environment:
-      - DB_CONNECTION=mysql
-      - DB_HOST=db
-      - DB_DATABASE=programa_estudos
-      - DB_USERNAME=mysql
-      - DB_PASSWORD=mypass
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_DATABASE: programa_estudos
+      DB_USERNAME: mysql
+      DB_PASSWORD: mypass
+      XDEBUG_CONFIG: remote_host=172.17.0.1
+      PHP_IDE_CONFIG: "serverName=xdebug-docker"
     volumes:
       - ./backend:/var/www/html
   db:
