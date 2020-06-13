@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-#  vue:
-#    build: ./frontend
-#    stdin_open: true
-#    tty: true
-#    volumes:
-#      - ./frontend:/app
-#      - /app/node_modules
-#    ports:
-#      - 80:3000
-#    environment:
-#      - CHOKIDAR_USEPOLLING=true
+  vue:
+    build: ./frontend
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - 80:8080
+    environment:
+      - CHOKIDAR_USEPOLLING=true
   php:
     build: ./backend
     ports:
