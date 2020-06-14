@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Actions\Banca\ListBancaAction;
+use App\Application\Actions\Orgao\ListOrgaoAction;
 use App\Application\Actions\ProgramaEstudos\AssuntosProgramaEstudosAction;
 use App\Application\Actions\ProgramaEstudos\DeleteProgramaEstudosAction;
 use App\Application\Actions\ProgramaEstudos\InsertProgramaEstudosAction;
@@ -30,5 +32,13 @@ return function (App $app) {
         $group->post('', InsertProgramaEstudosAction::class);
         $group->put('/{id}', UpdateProgramaEstudosAction::class);
         $group->delete('/{id}', DeleteProgramaEstudosAction::class);
+    });
+
+    $app->group('/banca', function (Group $group) {
+        $group->get('', ListBancaAction::class);
+    });
+
+    $app->group('/orgao', function (Group $group) {
+        $group->get('', ListOrgaoAction::class);
     });
 };
