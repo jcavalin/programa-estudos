@@ -24,7 +24,9 @@ class ProgramaEstudosRepositoryDb extends ProgramaEstudosRepository
                 INNER JOIN
                     orgao o ON pe.orgao_id = o.id
                 WHERE 
-                    pe.excluido IS FALSE";
+                    pe.excluido IS FALSE
+                ORDER BY 
+                    pe.id";
 
         return $this->fetchAll($sql);
     }

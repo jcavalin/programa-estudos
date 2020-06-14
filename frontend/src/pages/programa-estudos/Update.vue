@@ -1,9 +1,11 @@
 <template>
     <div>
         <ProgramaEstudosForm
-                titulo="Incluir novo programa de estudos"
+                titulo="Alterar programa de estudos"
                 :orgaos="orgaos"
                 :bancas="bancas"
+                :banca_id="banca_id"
+                :orgao_id="orgao_id"
                 @submit="submit">
         </ProgramaEstudosForm>
     </div>
@@ -19,8 +21,11 @@
         components: {ProgramaEstudosForm},
         data() {
             return {
+                id: null,
                 orgaos: [],
                 bancas: [],
+                banca_id: null,
+                orgao_id: null,
             }
         },
         methods: {
@@ -30,9 +35,16 @@
             submit(form) {
                 let {orgao_id, banca_id} = form;
 
-                ProgramaEstudos.insert({orgao_id, banca_id}).then(response => {
+                ProgramaEstudos.update(this.id, {orgao_id, banca_id}).then(response => {
                     let {id} = response.data;
                     this.$router.push({path: `/programa-estudos/${id}/view`})
+                });
+            },
+            carregarPrograma() {
+                ProgramaEstudos.get(this.id).then(response => {
+                    let dados = response.data;
+                    this.banca_id = dados.banca_id;
+                    this.orgao_id = dados.orgao_id;
                 });
             },
             carregarCombos() {
@@ -43,6 +55,9 @@
             }
         },
         created() {
+            this.id = this.$route.params.id;
+
+            this.carregarPrograma();
             this.carregarCombos()
         }
     }
