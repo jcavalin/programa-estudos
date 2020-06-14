@@ -125,44 +125,30 @@ class ProgramaEstudosRepositoryDb extends ProgramaEstudosRepository
         $sql = "SELECT
                     a.id,
                     a.assunto,
-                    COUNT(q.id) AS questoes
+                    a.pai_id,
+                    a.grupo,
+                    a.nivel,
+                    COUNT(DISTINCT q.id) AS questoes
                 FROM
-                    programa_estudos pe
+                    vw_arvore_assunto a
+                LEFT JOIN
+                    vw_arvore_assunto afilho ON afilho.grupo LIKE CONCAT(a.grupo, '%')
                 INNER JOIN
-                    questao q ON pe.banca_id = q.banca_id
-                             AND pe.orgao_id = q.orgao_id
+                    questao q ON (a.id = q.assunto_id OR afilho.id = q.assunto_id)
                              AND q.excluido IS FALSE
                 INNER JOIN
-                    (WITH RECURSIVE cte (id, assunto, pai_id, root_id) AS (
-                        SELECT
-                            pai.id,
-                            pai.assunto,
-                            pai.pai_id,
-                            pai.id AS root_id
-                        FROM
-                            assunto pai
-                        WHERE
-                            pai.excluido IS FALSE
-                        UNION ALL
-                        SELECT
-                            filho.id,
-                            filho.assunto,
-                            filho.pai_id,
-                            cte.root_id
-                        FROM
-                            assunto filho
-                        INNER JOIN
-                            cte ON filho.pai_id = cte.id
-                        WHERE
-                            filho.excluido IS FALSE
-                    )
-                    SELECT * FROM cte) a ON q.assunto_id = a.root_id
-                WHERE
-                        pe.id = :id
+                    programa_estudos pe ON q.banca_id = pe.banca_id
+                                       AND q.orgao_id = pe.orgao_id
+                                       AND pe.excluido IS FALSE
+                                       AND pe.id = :id
                 GROUP BY
-                    a.id, a.assunto
+                    a.id,
+                    a.assunto,
+                    a.pai_id,
+                    a.grupo,
+                    a.nivel
                 ORDER BY
-                    a.assunto";
+                    a.grupo";
 
         return $this->fetchAll($sql, ['id' => $id]);
     }
