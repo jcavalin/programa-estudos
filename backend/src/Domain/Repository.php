@@ -3,39 +3,83 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
-use App\Domain\DomainException\DomainException;
+use PDO;
+use PDOStatement;
 
-interface Repository
+abstract class Repository
 {
     /**
-     * @return Domain[]
+     * @var PDO
      */
-    public function findAll(): array;
+    protected $pdo;
+
+    /**
+     * @param PDO $pdo
+     */
+    public function setPDO(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return bool|PDOStatement
+     */
+    protected function execute(string $sql, array $params = []): PDOStatement
+    {
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute($params);
+
+        return $stm;
+    }
+
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
+    protected function fetchAll(string $sql, array $params = []): array
+    {
+        return $this->execute($sql, $params)->fetchAll(\PDO::FETCH_ASSOC) ?: [];
+    }
+
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
+    protected function fetch(string $sql, array $params = []): array
+    {
+        return $this->execute($sql, $params)->fetch(\PDO::FETCH_ASSOC) ?: [];
+    }
+
+    /**
+     * @return array
+     */
+    public abstract function findAll(): array;
 
     /**
      * @param int $id
-     * @return Domain
-     * @throws DomainException
+     * @return array
      */
-    public function byId(int $id): Domain;
+    public abstract function byId(int $id): array;
 
     /**
      * @param array $data
-     * @return Domain
-     * @throws DomainException
+     * @return array
      */
-    public function insert(array $data): Domain;
+    public abstract function insert(array $data);
 
     /**
      * @param int $id
      * @param array $data
-     * @return Domain
+     * @return array
      */
-    public function update(int $id, array $data): Domain;
+    public abstract function update(int $id, array $data);
 
     /**
      * @param int $id
-     * @throws DomainException
      */
-    public function delete(int $id);
+    public abstract function delete(int $id);
 }

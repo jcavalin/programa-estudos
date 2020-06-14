@@ -3,63 +3,98 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\ProgramaEstudos;
 
-use App\Domain\Domain;
 use App\Domain\ProgramaEstudos\ProgramaEstudosRepository;
-use App\Domain\User\User;
-use App\Domain\User\UserNotFoundException;
+use App\Infrastructure\Persistence\NotFoundException;
 
-class ProgramaEstudosRepositoryDb implements ProgramaEstudosRepository
+class ProgramaEstudosRepositoryDb extends ProgramaEstudosRepository
 {
-    /**
-     * @var User[]
-     */
-    private $users;
-
-    /**
-     * InMemoryUserRepository constructor.
-     *
-     * @param array|null $users
-     */
-    public function __construct(array $users = null)
-    {
-        $this->users = $users ?? [
-            1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
-            2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
-            3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
-            4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
-            5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
-        ];
-    }
-
     /**
      * {@inheritdoc}
      */
     public function findAll(): array
     {
-        return array_values($this->users);
+        $sql = "SELECT 
+                    pe.id,
+                    b.nome AS banca,
+                    o.nome AS orgao
+                FROM 
+                     programa_estudos pe
+                INNER JOIN
+                     banca b ON pe.banca_id = b.id
+                INNER JOIN
+                     orgao o ON pe.orgao_id = o.id
+                WHERE 
+                      pe.excluido IS FALSE";
+
+        return $this->fetchAll($sql);
     }
 
-    public function byId(int $id): Domain
+    /**
+     * @param int $id
+     * @return array
+     * @throws NotFoundException
+     */
+    public function byId(int $id): array
     {
-        if (!isset($this->users[$id])) {
-            throw new UserNotFoundException();
+        $sql = "SELECT * FROM programa_estudos WHERE id = :id";
+        $rs = $this->fetch($sql, ['id' => $id]);
+
+        if (empty($rs)) {
+            throw new NotFoundException("Registro não encontrado.");
         }
 
-        return $this->users[$id];
+        return $rs;
     }
 
-    public function insert(array $data): Domain
+    /**
+     * @param array $data
+     * @return array|void
+     */
+    public function insert(array $data)
     {
-        // TODO: Implement insert() method.
+        $sql = "INSERT INTO programa_estudos (orgao_id, banca_id) 
+                    VALUES (:orgao_id, :banca_id);";
+
+        $this->execute($sql, [
+            'orgao_id' => $data['orgao_id'],
+            'banca_id' => $data['banca_id']
+        ]);
     }
 
-    public function update(int $id, array $data): Domain
+    /**
+     * @param int $id
+     * @param array $data
+     * @return array|void
+     * @throws NotFoundException
+     */
+    public function update(int $id, array $data)
     {
-        // TODO: Implement update() method.
+        $this->byId($id);
+
+        $sql = "UPDATE programa_estudos SET 
+                    orgao_id = :orgao_id, 
+                    banca_id = :banca_id 
+                WHERE id = :id;";
+
+        $this->execute($sql, [
+            'id' => $id,
+            'orgao_id' => $data['orgao_id'],
+            'banca_id' => $data['banca_id']
+        ]);
     }
 
+    /**
+     * @param int $id
+     * @throws NotFoundException
+     */
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
+        $this->byId($id);
+
+        $sql = "UPDATE programa_estudos SET 
+                    excluido = true 
+                WHERE id = :id;";
+
+        $this->execute($sql, ['id' => $id]);
     }
 }

@@ -1,0 +1,6 @@
+backend/.docker
+backend/vendor
+backend/Dockerfile
+
+frontend/node_modules
+frontend/Dockerfile

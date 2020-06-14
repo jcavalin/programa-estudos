@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Application\Actions;
 
-use App\Domain\DomainException\DomainRecordNotFoundException;
+use App\Domain\Repository;
+use App\Infrastructure\Persistence\NotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpBadRequestException;
@@ -27,9 +28,14 @@ abstract class Action
     protected $args;
 
     /**
-     * @param Request  $request
+     * @var Repository
+     */
+    protected $repository;
+
+    /**
+     * @param Request $request
      * @param Response $response
-     * @param array    $args
+     * @param array $args
      * @return Response
      * @throws HttpNotFoundException
      * @throws HttpBadRequestException
@@ -42,14 +48,14 @@ abstract class Action
 
         try {
             return $this->action();
-        } catch (DomainRecordNotFoundException $e) {
+        } catch (NotFoundException $e) {
             throw new HttpNotFoundException($this->request, $e->getMessage());
         }
     }
 
     /**
      * @return Response
-     * @throws DomainRecordNotFoundException
+     * @throws NotFoundException
      * @throws HttpBadRequestException
      */
     abstract protected function action(): Response;
@@ -60,7 +66,7 @@ abstract class Action
      */
     protected function getFormData()
     {
-        $input = json_decode(file_get_contents('php://input'));
+        $input = json_decode(file_get_contents('php://input'), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new HttpBadRequestException($this->request, 'Malformed JSON input.');
@@ -70,7 +76,7 @@ abstract class Action
     }
 
     /**
-     * @param  string $name
+     * @param string $name
      * @return mixed
      * @throws HttpBadRequestException
      */
@@ -84,7 +90,8 @@ abstract class Action
     }
 
     /**
-     * @param  array|object|null $data
+     * @param array|object|null $data
+     * @param int $statusCode
      * @return Response
      */
     protected function respondWithData($data = null, int $statusCode = 200): Response
@@ -104,7 +111,31 @@ abstract class Action
         $this->response->getBody()->write($json);
 
         return $this->response
-                    ->withHeader('Content-Type', 'application/json')
-                    ->withStatus($payload->getStatusCode());
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus($payload->getStatusCode());
+    }
+
+    /**
+     * @param $params
+     * @param $param
+     * @throws ActionException
+     */
+    protected function validateRequired($params, $param)
+    {
+        if (!isset($params[$param]) || empty($params[$param])) {
+            throw new ActionException("O parâmetro {$param} é obrigatório.");
+        }
+    }
+
+    /**
+     * @param $params
+     * @param $param
+     * @throws ActionException
+     */
+    protected function validateInt($params, $param)
+    {
+        if (isset($params[$param]) && !intval($params[$param])) {
+            throw new ActionException("O parâmetro {$param} é inválido.");
+        }
     }
 }

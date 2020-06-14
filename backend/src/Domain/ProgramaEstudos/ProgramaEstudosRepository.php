@@ -5,6 +5,6 @@ namespace App\Domain\ProgramaEstudos;
 
 use App\Domain\Repository;
 
-interface ProgramaEstudosRepository extends Repository
+abstract class ProgramaEstudosRepository extends Repository
 {
 }
