@@ -56,7 +56,7 @@
 </template>
 
 <script>
-    import ProgramaEstudos from "../services/programaEstudos";
+    import ProgramaEstudos from "../services/programaEstudos"
 
     export default {
         data() {
@@ -73,9 +73,9 @@
         },
         methods: {
             excluir() {
-                this.fecharModal();
+                this.fecharModal()
                 ProgramaEstudos.delete(this.idExcluir).then(() => {
-                    this.idExcluir = null;
+                    this.idExcluir = null
                     this.carregarLista()
                 })
             },

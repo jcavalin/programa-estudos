@@ -72,10 +72,10 @@
         },
         watch: {
             banca_id: function (newVal) {
-                this.form.banca_id = newVal;
+                this.form.banca_id = newVal
             },
             orgao_id: function (newVal) {
-                this.form.orgao_id = newVal;
+                this.form.orgao_id = newVal
             },
         },
         data() {

@@ -28,6 +28,7 @@
 .form-button-container {
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
 }
 
 .margin-right-5 {
@@ -40,4 +41,8 @@
 
 .margin-bottom-15 {
     margin-bottom: 15px;
+}
+
+.strong {
+    font-weight: bold;
 }
