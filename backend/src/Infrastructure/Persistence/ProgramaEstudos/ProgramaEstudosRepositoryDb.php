@@ -63,7 +63,7 @@ class ProgramaEstudosRepositoryDb extends ProgramaEstudosRepository
 
     /**
      * @param array $data
-     * @return array|void
+     * @return string
      */
     public function insert(array $data)
     {
@@ -74,6 +74,8 @@ class ProgramaEstudosRepositoryDb extends ProgramaEstudosRepository
             'orgao_id' => $data['orgao_id'],
             'banca_id' => $data['banca_id']
         ]);
+
+        return $this->pdo->lastInsertId();
     }
 
     /**

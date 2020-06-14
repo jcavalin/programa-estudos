@@ -22,8 +22,8 @@ class InsertProgramaEstudosAction extends ProgramaEstudosAction
         $this->validateRequired($params, 'banca_id');
         $this->validateInt($params, 'banca_id');
 
-        $this->repository->insert($params);
+        $id = $this->repository->insert($params);
 
-        return $this->respondWithData();
+        return $this->respondWithData(['id' => $id]);
     }
 }

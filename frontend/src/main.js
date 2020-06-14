@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
+import {} from './validation';
 import App from './App.vue'
 import router from './router';
 
