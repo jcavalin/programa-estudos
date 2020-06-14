@@ -12,19 +12,17 @@
 
         <b-table v-if="lista.length > 0" striped hover :items="lista" :fields="fields">
             <template v-slot:cell(acao)="data">
-                <div class="text-center">
-                    <b-button-group size="sm">
-                        <b-button variant="primary" title="Alterar" :to="`/programa-estudos/${data.item.id}/edit`">
-                            <b-icon-pencil></b-icon-pencil>
-                        </b-button>
-                        <b-button variant="success" title="Visualizar" :to="`/programa-estudos/${data.item.id}/view`">
-                            <b-icon-search></b-icon-search>
-                        </b-button>
-                        <b-button variant="danger" title="Excluir" v-on:click="abrirModal(data.item.id)">
-                            <b-icon-trash></b-icon-trash>
-                        </b-button>
-                    </b-button-group>
-                </div>
+                <b-button-group size="sm">
+                    <b-button variant="primary" title="Alterar" :to="`/programa-estudos/${data.item.id}/edit`">
+                        <b-icon-pencil></b-icon-pencil>
+                    </b-button>
+                    <b-button variant="success" title="Visualizar" :to="`/programa-estudos/${data.item.id}/view`">
+                        <b-icon-search></b-icon-search>
+                    </b-button>
+                    <b-button variant="danger" title="Excluir" v-on:click="abrirModal(data.item.id)">
+                        <b-icon-trash></b-icon-trash>
+                    </b-button>
+                </b-button-group>
             </template>
         </b-table>
 
@@ -65,7 +63,7 @@
                     {key: 'id', sortable: true, label: 'ID', formatter: value => `#${value}`, class: 'text-center'},
                     {key: 'banca', sortable: true, label: 'Banca'},
                     {key: 'orgao', sortable: true, label: 'Órgão'},
-                    {key: 'acao', label: 'Ação'},
+                    {key: 'acao', label: 'Ação', class: 'text-center'},
                 ],
                 lista: [],
                 idExcluir: null
