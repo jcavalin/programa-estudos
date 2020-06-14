@@ -14,6 +14,7 @@ class GetProgramaEstudosAction extends ProgramaEstudosAction
     {
         $id = (int)$this->resolveArg('id');
         $rs = $this->repository->byId($id);
+
         return $this->respondWithData($rs);
     }
 }

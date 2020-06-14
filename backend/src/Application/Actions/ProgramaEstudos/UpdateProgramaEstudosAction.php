@@ -24,6 +24,7 @@ class UpdateProgramaEstudosAction extends ProgramaEstudosAction
         $this->validateInt($params, 'banca_id');
 
         $this->repository->update($id, $params);
+
         return $this->respondWithData();
     }
 }

@@ -7,19 +7,9 @@ CREATE TABLE banca
 ) ENGINE = InnoDB;
 
 INSERT INTO banca (nome)
-VALUES ('CESPE'),
-       ('Cebraspe'),
-       ('Idecan'),
+VALUES ('Cebraspe'),
        ('FCC'),
        ('Iades'),
        ('Cesgranrio'),
-       ('Fundação Universa'),
-       ('FUNRIO'),
-       ('FUNTEF-PR'),
-       ('Inaz do Pará'),
-       ('Cetro'),
-       ('CIEE'),
-       ('UFRRJ'),
-       ('Instituto Quadrix'),
-       ('UNIVERSA')
+       ('Instituto Quadrix')
 ;

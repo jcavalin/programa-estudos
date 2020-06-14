@@ -23,6 +23,7 @@ class InsertProgramaEstudosAction extends ProgramaEstudosAction
         $this->validateInt($params, 'banca_id');
 
         $this->repository->insert($params);
+
         return $this->respondWithData();
     }
 }

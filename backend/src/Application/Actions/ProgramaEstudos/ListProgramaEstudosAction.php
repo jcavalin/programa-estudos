@@ -13,6 +13,7 @@ class ListProgramaEstudosAction extends ProgramaEstudosAction
     protected function action(): Response
     {
         $users = $this->repository->findAll();
+
         return $this->respondWithData($users);
     }
 }

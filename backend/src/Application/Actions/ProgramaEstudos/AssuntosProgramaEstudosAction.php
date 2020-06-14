@@ -5,7 +5,7 @@ namespace App\Application\Actions\ProgramaEstudos;
 
 use Psr\Http\Message\ResponseInterface as Response;
 
-class DeleteProgramaEstudosAction extends ProgramaEstudosAction
+class AssuntosProgramaEstudosAction extends ProgramaEstudosAction
 {
     /**
      * {@inheritdoc}
@@ -13,8 +13,8 @@ class DeleteProgramaEstudosAction extends ProgramaEstudosAction
     protected function action(): Response
     {
         $id = (int)$this->resolveArg('id');
-        $this->repository->delete($id);
+        $rs = $this->repository->assuntos($id);
 
-        return $this->respondWithData();
+        return $this->respondWithData($rs);
     }
 }

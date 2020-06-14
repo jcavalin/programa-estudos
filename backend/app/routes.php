@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Actions\ProgramaEstudos\AssuntosProgramaEstudosAction;
 use App\Application\Actions\ProgramaEstudos\DeleteProgramaEstudosAction;
 use App\Application\Actions\ProgramaEstudos\InsertProgramaEstudosAction;
 use App\Application\Actions\ProgramaEstudos\ListProgramaEstudosAction;
@@ -25,6 +26,7 @@ return function (App $app) {
     $app->group('/programas-estudos', function (Group $group) {
         $group->get('', ListProgramaEstudosAction::class);
         $group->get('/{id}', GetProgramaEstudosAction::class);
+        $group->get('/{id}/assuntos', AssuntosProgramaEstudosAction::class);
         $group->post('', InsertProgramaEstudosAction::class);
         $group->put('/{id}', UpdateProgramaEstudosAction::class);
         $group->delete('/{id}', DeleteProgramaEstudosAction::class);
