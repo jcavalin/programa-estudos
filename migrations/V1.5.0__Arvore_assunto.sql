@@ -19,7 +19,7 @@ CREATE VIEW vw_arvore_assunto AS (
              CAST(CONCAT(cte.grupo, LPAD(filho.id, 3, "0")) AS CHAR(1000)) AS grupo
          FROM
              assunto filho
-                 INNER JOIN
+         INNER JOIN
              cte ON filho.pai_id = cte.id
          WHERE
              filho.excluido IS FALSE

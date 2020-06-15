@@ -6,11 +6,12 @@
 }
 
 #app > header {
-    background-color: #24292e;
+    background-color: #eb2324;
     color: #FFF;
     padding: 15px;
     text-transform: uppercase;
     text-align: center;
+    font-weight: bold;
 }
 
 #app > .page {

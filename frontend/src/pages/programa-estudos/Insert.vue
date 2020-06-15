@@ -24,9 +24,6 @@
             }
         },
         methods: {
-            getValidationState({dirty, validated, valid = null}) {
-                return dirty || validated ? valid : null
-            },
             submit(form) {
                 let {orgao_id, banca_id} = form
 

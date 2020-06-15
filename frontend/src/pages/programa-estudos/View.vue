@@ -25,7 +25,8 @@
                     <b-table v-if="assuntos.length > 0" striped hover :items="assuntos" :fields="fields">
                         <template v-slot:cell(assunto)="data">
                             <span :style="`margin-left: ${calcularMarginArvore(data.item.grupo)}px`">
-                                <b-icon-arrow-return-right v-if="exibirIcone(data.item.grupo)"></b-icon-arrow-return-right>
+                                <b-icon-arrow-return-right
+                                        v-if="exibirIcone(data.item.grupo)"></b-icon-arrow-return-right>
                                 {{data.item.assunto}}
                             </span>
                         </template>
@@ -74,14 +75,10 @@
         },
         methods: {
             carregarPrograma() {
-                ProgramaEstudos.get(this.id).then(response => {
-                    this.programaEstudos = response.data
-                })
+                ProgramaEstudos.get(this.id).then(response => this.programaEstudos = response.data)
             },
             carregarAssuntos() {
-                ProgramaEstudos.assuntos(this.id).then(response => {
-                    this.assuntos = response.data
-                })
+                ProgramaEstudos.assuntos(this.id).then(response => this.assuntos = response.data)
             },
             calcularMarginArvore(grupo) {
                 return (grupo.length - 3) * 7

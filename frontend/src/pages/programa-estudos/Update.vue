@@ -29,21 +29,17 @@
             }
         },
         methods: {
-            getValidationState({dirty, validated, valid = null}) {
-                return dirty || validated ? valid : null
-            },
             submit(form) {
                 let {orgao_id, banca_id} = form
 
-                ProgramaEstudos.update(this.id, {orgao_id, banca_id}).then(() => {
+                ProgramaEstudos.update(this.id, {orgao_id, banca_id}).then(() =>
                     this.$router.push({path: `/programa-estudos/${this.id}/view`})
-                })
+                )
             },
             carregarPrograma() {
-                ProgramaEstudos.get(this.id).then(response => {
-                    let dados = response.data
-                    this.banca_id = dados.banca_id
-                    this.orgao_id = dados.orgao_id
+                ProgramaEstudos.get(this.id).then(({data}) => {
+                    this.banca_id = data.banca_id
+                    this.orgao_id = data.orgao_id
                 })
             },
             carregarCombos() {

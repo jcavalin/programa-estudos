@@ -24,7 +24,6 @@ class BancaRepositoryDb extends BancaRepository
         return $this->fetchAll($sql);
     }
 
-
     /**
      * @param int $id
      * @return array

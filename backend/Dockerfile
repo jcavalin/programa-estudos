@@ -12,9 +12,9 @@ RUN a2enmod rewrite
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
-COPY .docker/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+# RUN pecl install xdebug
+# RUN docker-php-ext-enable xdebug
+# COPY .docker/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY composer.phar ./
 COPY composer.json ./

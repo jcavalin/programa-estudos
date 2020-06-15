@@ -1,7 +1,7 @@
 CREATE TABLE questao
 (
     id         SERIAL,
-    questao    VARCHAR(2000)          NOT NULL,
+    questao    VARCHAR(2000)         NOT NULL,
     assunto_id BIGINT UNSIGNED       NOT NULL,
     orgao_id   BIGINT UNSIGNED       NOT NULL,
     banca_id   BIGINT UNSIGNED       NOT NULL,
