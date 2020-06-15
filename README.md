@@ -9,7 +9,7 @@ docker-compose up --build
 
 Aguarde todos os serviços iniciarem  e acesse [http://localhost](http://localhost).
 
-<sub><sup>Obs: É preciso aguardar também as migrations executarem por completo.</sup></sub>
+<sub>Obs: É preciso aguardar também as migrations executarem por completo.</sub>
 
 #### Serviços
 
