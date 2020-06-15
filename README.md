@@ -42,16 +42,16 @@ Aguarde todos os serviços iniciarem  e acesse [http://localhost](http://localho
 
 #### Funcionalidades
 
-<sub>1. Lista de programas de estudos</sub>
+1 - Lista de programas de estudos
 
 ![Lista de programas de estudos](https://raw.githubusercontent.com/jcavalin/programa-estudos/master/assets/1-lista-programa-estudos.png "Lista de programas de estudos")
 
 
-<sub>2. Incluir programa de estudos</sub>
+2 - Incluir programa de estudos
 
 ![Incluir programa de estudos](https://raw.githubusercontent.com/jcavalin/programa-estudos/master/assets/2-incluir-programa-estudos.png "Incluir programa de estudos")
 
 
-<sub>3. Visualizar programa de estudos</sub>
+3 - Visualizar programa de estudos
 
 ![Visualizar programa de estudos](https://raw.githubusercontent.com/jcavalin/programa-estudos/master/assets/3-visualizar-programa-estudos.png "Visualizar programa de estudos")
