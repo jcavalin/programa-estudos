@@ -7,11 +7,9 @@ CREATE TABLE orgao
 ) ENGINE = InnoDB;
 
 INSERT INTO orgao (nome)
-VALUES ('SEDF - Secretaria de Educação do DF'),
-       ('Senado Federal'),
+VALUES ('Senado Federal'),
        ('PCDF - Polícia Civil do DF'),
        ('PF - Polícia Federal'),
        ('PGDF - Procuradoria-Geral do Distrito Federal'),
-       ('TCDF - Tribunal de Contas do Distrito Federal'),
-       ('BB - Banco do Brasil')
+       ('TCDF - Tribunal de Contas do Distrito Federal')
 ;

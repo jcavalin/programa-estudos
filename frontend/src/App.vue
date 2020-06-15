@@ -1,8 +1,10 @@
 <template>
     <div id="app">
         <header>
-            <b-icon-book-half></b-icon-book-half>
-            Programa de Estudos
+            <router-link to="/" title="Tela inicial">
+                <b-icon-book-half></b-icon-book-half>
+                Programa de Estudos
+            </router-link>
         </header>
 
         <div class="page container-fluid">
