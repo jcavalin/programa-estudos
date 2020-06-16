@@ -13,7 +13,7 @@ Aguarde todos os serviços iniciarem  e acesse [http://localhost](http://localho
 
 ###Live demo
 
-O projeto também está disponível em [http://programaestudos.tk](http://programaestudos.tk)
+O projeto também está disponível em [http://programaestudos.tk](http://programaestudos.tk).
 
 #### Serviços
 
