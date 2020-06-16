@@ -11,6 +11,10 @@ Aguarde todos os serviços iniciarem  e acesse [http://localhost](http://localho
 
 <sub>Obs: É preciso aguardar também as migrations executarem por completo.</sub>
 
+###Live demo
+
+O projeto também está disponível em [http://programaestudos.tk](http://programaestudos.tk)
+
 #### Serviços
 
 ```
